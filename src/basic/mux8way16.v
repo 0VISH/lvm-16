@@ -15,7 +15,7 @@ module mux8way16(
 );
 
 wire [1:0] line1 = lines[2:1];
-wire line2 = lines[0];
+wire line2 = lines[2];
 wire [15:0] out1;
 wire [15:0] out2;
 

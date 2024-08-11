@@ -1,4 +1,4 @@
-`include "src/alu/add16.v"
+`include "src/alu/alu.v"
 
 module test();
 
@@ -14,6 +14,12 @@ reg cc;
 
 fullAdder fa(.sum(su), .carry(carr), .a(aa), .b(bb), .c(cc));
 add16 add(.out(out), .in1(in1), .in2(in2));
+
+reg zx, nx, zy, ny, f, no;
+wire [15:0] aluout;
+reg [15:0] x;
+reg [15:0] y;
+alu aluv(.out(aluout), .zx(zx), .nx(nx), .zy(zy), .ny(ny), .f(f), .no(no), .x(x), .y(y));
 
 initial begin
 	$display("-----[ADD]-----");
@@ -63,7 +69,39 @@ initial begin
 	bb = 1'b1;
 	cc = 1'b1;
 	#10;
-
+	$display("-----[ALU]-----");
+	$display("zx\t nx\t zy\t ny\t f\t no\t x\t y\t out\t");
+	$monitor("%b\t %b\t %b\t %b\t %b\t %b\t %b(%d)\t %b(%d)\t %b(%d)", zx, nx, zy, ny, f, no, x, x, y, y, aluout, aluout);
+	x = 16'd5;
+	y = 16'd5;
+	zx = 1'b1;
+	zy = 1'b1;
+	nx = 0;
+	ny = 0;
+	f = 0;
+	no = 0;
+	#1000;
+	zx = 1;
+	zy = 1;
+	nx = 1;
+	ny = 1;
+	f = 1;
+	no = 1;
+	#1000;
+	zx = 1;
+	zy = 1;
+	nx = 1;
+	ny = 0;
+	f = 1;
+	no = 0;
+	#1000;
+	zx = 0;
+	zy = 0;
+	nx = 0;
+	ny = 0;
+	f = 1;
+	no = 0;
+	#1000;
 	$finish;
 end
 

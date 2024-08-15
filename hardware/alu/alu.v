@@ -1,7 +1,7 @@
-`include "cpu/alu/add16.v"
-`include "cpu/basic/mux2way16.v"
-`include "cpu/basic/not16.v"
-`include "cpu/basic/and16.v"
+`include "hardware/alu/add16.v"
+`include "hardware/basic/mux2way16.v"
+`include "hardware/basic/not16.v"
+`include "hardware/basic/and16.v"
 
 module alu(output [15:0] out, input enable, input zx, nx, zy, ny, f, no, input wire [15:0] x, input wire [15:0] y);
 

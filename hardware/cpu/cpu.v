@@ -1,7 +1,9 @@
-`include "cpu/basic/selector.v"
-`include "cpu/mmu/register.v"
-`include "cpu/basic/mux4way16.v"
-`include "cpu/alu/alu.v"
+`include "hardware/basic/selector.v"
+`include "hardware/mmu/register.v"
+`include "hardware/basic/mux4way16.v"
+`include "hardware/alu/alu.v"
+`include "hardware/mmu/counter.v"
+`include "hardware/cpu/jc.v"
 
 module cpu(output [15:0] out, output [15:0] pc, output [15:0] addr, output write, input [15:0] instruction, input [15:0] data, input reset);
 
@@ -13,6 +15,7 @@ wire zy = instruction[5];
 wire ny = instruction[4];
 wire f = instruction[3];
 wire no = instruction[2];
+wire [1:0] jmpInstr = instruction[9:8];
 wire [1:0] E = instruction[9:8];
 wire [1:0] D = instruction[11:10];
 wire [1:0] F = instruction[13:12];
@@ -23,6 +26,8 @@ wire [15:0] r1Out, r2Out, r3Out;
 wire [15:0] regRBus1;
 wire [15:0] regRBus2;
 
+jc ijc(.jmp(shouldJmp), .incr(shouldIncr), .instruction(instruction), .val(regRBus2), .jmpInstr(jmpInstr));
+counter icounter(.curState(pc), .d(regRBus1), .reset(reset), .increment(shouldIncr), .enable(shouldJmp));
 mux2way16 dataSelector(.out(selectData), .inp1(data), .inp2(out), .line(B));
 register r1(.curState(r1Out), .d(selectData), .enable(r1En));
 register r2(.curState(r2Out), .d(selectData), .enable(r2En));

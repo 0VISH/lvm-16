@@ -1,4 +1,4 @@
-`include "cpu/alu/fullAdder.v"
+`include "hardware/alu/fullAdder.v"
 
 module add16(output [15:0] out, input [15:0] in1, input [15:0] in2);
 

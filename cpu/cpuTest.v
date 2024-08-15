@@ -11,7 +11,7 @@ cpu tcpu(out, pc, addr, write, instruction, data, reset);
 initial begin
 	$display("-----[CPU]-----");
 	$display("out\tpc\taddr\twrite\tinstruction\tdata\treset");
-	$monitor("%b(%d)\t%b(%d)\t%b(%d)\t%b\t%b\t%b(%d)\t%b\n%b %b %b %b", out, out, pc, pc, addr, addr, write, instruction, data, data, reset, tcpu.r1Out, tcpu.r1En, tcpu.r2Out, tcpu.r2En);
+	$monitor("%b(%d)\t%b(%d)\t%b(%d)\t%b\t%b\t%b(%d)\t%b", out, out, pc, pc, addr, addr, write, instruction, data, data, reset);
 
 
 	reset = 1'b0;
@@ -25,7 +25,7 @@ initial begin
 	#1000;
 	instruction = 16'b0100000000000000;
 	#1000;
-	instruction = 16'b1100011000001011;
+	instruction = 16'b1111011000001011;
 	#1000;
 
 	$finish;

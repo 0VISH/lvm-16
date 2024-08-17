@@ -32,6 +32,9 @@ Perform an operation(unary/binary) on register(s) and store the result in anothe
       dst   lhs   rhs    operation
 ```
 The only part in my CPU which I did not design is the ALU, which I took from the book "The elements of computing systems". 
+
+<br>
+
 <img src="img/alu_truthtable.png">
 
 ### 4) JUMP

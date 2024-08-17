@@ -5,8 +5,9 @@ wire lessZ = val[15] & jmpInstr[0] & ~jmpInstr[1];
 wire grtZ = |val & ~instruction[15] & jmpInstr[0] & jmpInstr[1];
 
 wire equZ = ~lessZ & ~grtZ & jmpInstr[0] & jmpInstr[0];
+wire justJmp = ~instruction[1] & instruction[0];
 
-assign jmp = shouldJmp & (lessZ | grtZ | equZ);
+assign jmp = shouldJmp & (lessZ | grtZ | equZ | justJmp);
 assign incr = ~jmp;
 
 endmodule;

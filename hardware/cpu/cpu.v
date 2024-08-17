@@ -9,7 +9,8 @@ module cpu(output [15:0] out, output [15:0] pc, output [15:0] addr, output write
 
 wire x = instruction[15];
 wire y = instruction[14];
-assign write = ~x & ~y;
+assign write = x & ~y;
+assign addr = instruction[13:2];
 wire zx = instruction[7] & ~write;
 wire nx = instruction[6] & ~write;
 wire zy = instruction[5] | write;

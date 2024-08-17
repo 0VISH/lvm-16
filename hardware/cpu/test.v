@@ -5,8 +5,8 @@ module cpuTest();
 wire [15:0] out, pc, addr;
 wire write;
 reg [15:0] instruction, data;
-reg reset;
-cpu tcpu(out, pc, addr, write, instruction, data, reset);
+reg reset, clk;
+cpu tcpu(out, pc, addr, write, clk, instruction, data, reset);
 
 wire jmp, incr;
 reg [15:0] val;
@@ -24,26 +24,38 @@ initial begin
 	#100;
 	$display("\n-----[CPU]-----");
 	$display("out\tpc\taddr\twrite\tinstruction\tdata\treset");
-	$monitor("%b(%d)\t%b(%d)\t%b(%d)\t%b\t%b\t%b(%d)\t%b\n %b %b", out, out, pc, pc, addr, addr, write, instruction, data, data, reset, tcpu.shouldIncr, tcpu.shouldJmp);
+	$monitor("%b(%d)\t%b(%d)\t%b(%d)\t%b\t%b\t%b(%d)\t%b\n %b %b", out, out, pc, pc, addr, addr, write, instruction, data, data, reset, tcpu.A, tcpu.f);
 
-	instruction = 16'b1000000000000000;
+	clk = 0;
 	reset = 1'd1;
+	instruction = 16'b0100000000000000;
 	#100;
+	clk = 1;
 	reset = 1'd0;
 	#100;
+	clk = 0;
 	data = 16'd50;
 	instruction = 16'b0101111111111111;
 	#1000;
+	clk = 1;
 	instruction = 16'b0100000000000000;
 	#1000;
+	clk = 0;
 	instruction = 16'b0110111111111111;
 	data = 16'd5;
 	#1000;
+	clk = 1;
 	instruction = 16'b0100000000000000;
 	#1000;
+	clk = 0;
 	instruction = 16'b1111011000001011;
 	#1000;
-
+	clk = 1;
+	instruction = 16'b0100000000000000;
+	#1000;
+	clk = 0;
+	instruction = 16'b00xxxxxxxxxxxx11;
+	#1000;
 	$finish;
 end;
 

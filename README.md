@@ -50,3 +50,5 @@ jmp table
 * jst jmp: 2'b01
 
 NOTE: val should never be 2'd0
+
+<img src="img/cpu.jpg">
